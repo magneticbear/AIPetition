@@ -42,23 +42,23 @@
 		E8D83F231580C2F600EEA230 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E8D83F251580C2F600EEA230 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		E8D83F271580C2F600EEA230 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		E8D83F2B1580C2F600EEA230 /* AIPetition-Info.plist */ = {isa = PBXFileReference; path = "AIPetition-Info.plist"; sourceTree = "<group>"; };
+		E8D83F2B1580C2F600EEA230 /* AIPetition-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AIPetition-Info.plist"; sourceTree = "<group>"; };
 		E8D83F2D1580C2F600EEA230 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E8D83F2F1580C2F600EEA230 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E8D83F311580C2F600EEA230 /* AIPetition-Prefix.pch */ = {isa = PBXFileReference; path = "AIPetition-Prefix.pch"; sourceTree = "<group>"; };
-		E8D83F321580C2F600EEA230 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		E8D83F311580C2F600EEA230 /* AIPetition-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AIPetition-Prefix.pch"; sourceTree = "<group>"; };
+		E8D83F321580C2F600EEA230 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E8D83F331580C2F600EEA230 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E8D83F361580C2F600EEA230 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		E8D83F391580C2F600EEA230 /* AIPetition.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AIPetition.xcdatamodel; sourceTree = "<group>"; };
-		E8D83F3B1580C2F600EEA230 /* MasterViewController.h */ = {isa = PBXFileReference; path = MasterViewController.h; sourceTree = "<group>"; };
+		E8D83F3B1580C2F600EEA230 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
 		E8D83F3C1580C2F600EEA230 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		E8D83F3E1580C2F600EEA230 /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
+		E8D83F3E1580C2F600EEA230 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		E8D83F3F1580C2F600EEA230 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		E8D83F461580C2F600EEA230 /* AIPetitionTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIPetitionTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8D83F471580C2F600EEA230 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		E8D83F501580C2F600EEA230 /* AIPetitionTests-Info.plist */ = {isa = PBXFileReference; path = "AIPetitionTests-Info.plist"; sourceTree = "<group>"; };
+		E8D83F501580C2F600EEA230 /* AIPetitionTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AIPetitionTests-Info.plist"; sourceTree = "<group>"; };
 		E8D83F521580C2F600EEA230 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E8D83F541580C2F600EEA230 /* AIPetitionTests.h */ = {isa = PBXFileReference; path = AIPetitionTests.h; sourceTree = "<group>"; };
+		E8D83F541580C2F600EEA230 /* AIPetitionTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AIPetitionTests.h; sourceTree = "<group>"; };
 		E8D83F551580C2F600EEA230 /* AIPetitionTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AIPetitionTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -379,6 +379,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AIPetition/AIPetition-Prefix.pch";
 				INFOPLIST_FILE = "AIPetition/AIPetition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -390,6 +391,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AIPetition/AIPetition-Prefix.pch";
 				INFOPLIST_FILE = "AIPetition/AIPetition-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
