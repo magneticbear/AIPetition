@@ -50,9 +50,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     [self configureView];
+    
+    appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    isLocked = NO;
+    
     UIBarButtonItem *lockBtn = [[UIBarButtonItem alloc] initWithTitle:@"Lock" style:UIBarButtonItemStylePlain target:self action:@selector(lock:)];
     UIBarButtonItem *emailBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(email:)];
-//    self.navigationItem.rightBarButtonItem = lockBtn;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:lockBtn, emailBtn, nil];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"petition" ofType:@"pdf"];
     NSURL *targetURL = [NSURL fileURLWithPath:path];
@@ -91,113 +94,107 @@
 
 #pragma mark - Lock
 - (void)lock:(id)sender {
-//    if ([self.currentUser pinCode] == NULL) {
+
+    if ([currentUser pinCode] == NULL) {
+        
+        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+        [darkOverlay setBackgroundColor:[UIColor blackColor]];
+        [darkOverlay setAlpha:0];
+        [self.splitViewController.view addSubview:darkOverlay];
+        [UIView beginAnimations:@"castOverlay" context:nil];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDuration:0.3];
+        darkOverlay.alpha = 0.6;
+        [UIView commitAnimations];
         pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
         
         [pinCodeViewController setDelegate:self];
-    pinCodeViewController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentModalViewController:pinCodeViewController animated:NO];
-//        [pinCodeViewController.view setCenter:self.view.center];
-//        [self.view addSubview:pinCodeViewController.view];
-//        if ([self.currentUser pinCode] == NULL) {
-//            pinCodeViewController.titleLabel.text = @"Set your PIN";
-//            pinCodeViewController.descriptionLabel.text = @"Choose a 4-digit secret PIN";
-//        }
-//    } else {
-//        if (isLocked) {
-//            darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
-//            [darkOverlay setBackgroundColor:[UIColor blackColor]];
-//            [darkOverlay setAlpha:0];
-//            [self.view addSubview:darkOverlay];
-//            [UIView beginAnimations:@"castOverlay" context:nil];
-//            [UIView setAnimationDelegate:self];
-//            [UIView setAnimationDuration:0.3];
-//            darkOverlay.alpha = 0.6;
-//            [UIView commitAnimations];
-//            pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
-//            
-//            [pinCodeViewController setDelegate:self];
-//            [pinCodeViewController.view setFrame:CGRectMake(
-//                                                            (self.view.frame.size.height/2)-(pinCodeViewController.view.frame.size.width/2),
-//                                                            (self.view.frame.size.width/2)-(pinCodeViewController.view.frame.size.height/2),
-//                                                            pinCodeViewController.view.frame.size.width,
-//                                                            pinCodeViewController.view.frame.size.height)];
-//            [self.view addSubview:pinCodeViewController.view];
-//        } else {
-//            [self removeOverlay];
-//            isLocked = true;
-//            [lockBtn setImage:[UIImage imageNamed:@"Lock.png"] forState:UIControlStateNormal];
-//            [UIView beginAnimations:@"showAdminBar" context:nil];
-//            [UIView setAnimationDelegate:self];
-//            [UIView setAnimationDuration:0.5];
-//            [favoritesLayer setAlpha:0];
-//            breadcrumbBar.frame = CGRectMake(breadcrumbBar.frame.origin.x, breadcrumbBar.frame.origin.y-ADMIN_OFFSET, breadcrumbBar.frame.size.width, breadcrumbBar.frame.size.width);
-//            mainContentView.frame = CGRectMake(mainContentView.frame.origin.x, mainContentView.frame.origin.y-ADMIN_OFFSET, mainContentView.frame.size.width, mainContentView.frame.size.height);
-//            profilePicView.frame = CGRectMake(profilePicView.frame.origin.x, profilePicView.frame.origin.y-ADMIN_OFFSET, profilePicView.frame.size.width, profilePicView.frame.size.height);
-//            mainContentScrollView.frame = CGRectMake(mainContentScrollView.frame.origin.x, mainContentScrollView.frame.origin.y, mainContentScrollView.frame.size.width, mainContentScrollView.frame.size.height+ADMIN_OFFSET);
-//            adminBar.alpha = 0;
-//            [UIView commitAnimations];
-//        }
-//    }
+        [pinCodeViewController.view setFrame:CGRectMake(
+                                                        (self.splitViewController.view.frame.size.height/2)-(pinCodeViewController.view.frame.size.width/2),
+                                                        (self.splitViewController.view.frame.size.width/2)-(pinCodeViewController.view.frame.size.height/2),
+                                                        pinCodeViewController.view.frame.size.width,
+                                                        pinCodeViewController.view.frame.size.height)];
+        [self.splitViewController.view addSubview:pinCodeViewController.view];
+        if ([currentUser pinCode] == NULL) {
+            pinCodeViewController.titleLabel.text = @"Set your PIN";
+            pinCodeViewController.descriptionLabel.text = @"Choose a 4-digit secret PIN";
+        }
+
+    } else {
+            if (isLocked) {
+                darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+                [darkOverlay setBackgroundColor:[UIColor blackColor]];
+                [darkOverlay setAlpha:0];
+                [self.splitViewController.view addSubview:darkOverlay];
+                [UIView beginAnimations:@"castOverlay" context:nil];
+                [UIView setAnimationDelegate:self];
+                [UIView setAnimationDuration:0.3];
+                darkOverlay.alpha = 0.6;
+                [UIView commitAnimations];
+                pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
+                
+                [pinCodeViewController setDelegate:self];
+                [pinCodeViewController.view setFrame:CGRectMake(
+                                                                (self.splitViewController.view.frame.size.height/2)-(pinCodeViewController.view.frame.size.width/2),
+                                                                (self.splitViewController.view.frame.size.width/2)-(pinCodeViewController.view.frame.size.height/2),
+                                                                pinCodeViewController.view.frame.size.width,
+                                                                pinCodeViewController.view.frame.size.height)];
+
+                [self.splitViewController.view addSubview:pinCodeViewController.view];
+            } else {
+                [self removeOverlay];
+                isLocked = true;
+                // btn to unlock
+            }
+    }
+    
 }
 # pragma mark -- PinView delegate methods
 
+-(void) pinCodeViewLogout {
+
+    //NOT needed
+}
+
 -(BOOL) isPinCodeCorrect:(NSString *)pinCode{
-    NSLog(@"pinCode is %@", pinCode);
-    [self dismissModalViewControllerAnimated:NO];
-//    NSString *stringPIN = [self.currentUser pinCode].stringValue;
-//    if (stringPIN == (NSString*)NULL) {
-//        stringPIN = @"0000";
-//    }
-//    while ([stringPIN length] < 4) {
-//        stringPIN = [NSString stringWithFormat:@"%@0",stringPIN];
-//    }
-//    if ([stringPIN isEqualToString:[pinCode substringToIndex:4]]) {
-//        isLocked = false;
-//        [lockBtn setImage:[UIImage imageNamed:@"Lock2.png"] forState:UIControlStateNormal];
-//        [UIView beginAnimations:@"hideAdminBar" context:nil];
-//        [UIView setAnimationDelegate:self];
-//        [UIView setAnimationDuration:0.5];
-//        [favoritesLayer setAlpha:1];
-//        breadcrumbBar.frame = CGRectMake(breadcrumbBar.frame.origin.x, breadcrumbBar.frame.origin.y+ADMIN_OFFSET, breadcrumbBar.frame.size.width, breadcrumbBar.frame.size.width);
-//        mainContentView.frame = CGRectMake(mainContentView.frame.origin.x, mainContentView.frame.origin.y+ADMIN_OFFSET, mainContentView.frame.size.width, mainContentView.frame.size.height);
-//        profilePicView.frame = CGRectMake(profilePicView.frame.origin.x, profilePicView.frame.origin.y+ADMIN_OFFSET, profilePicView.frame.size.width, profilePicView.frame.size.height);
-//        mainContentScrollView.frame = CGRectMake(mainContentScrollView.frame.origin.x, mainContentScrollView.frame.origin.y, mainContentScrollView.frame.size.width, mainContentScrollView.frame.size.height-ADMIN_OFFSET);
-//        adminBar.alpha = 1;
-//        [UIView commitAnimations];
-//        return YES;
-//    } else if ([stringPIN isEqualToString:@"0000"]) {
-//        currentUser.pinCode = [NSNumber numberWithInteger:[pinCode intValue]];
-//        [self saveContext];
-//        [self lock:self];
-//        return YES;
-//    }
+
+    NSString *stringPIN = [currentUser pinCode];
+    if (stringPIN == (NSString*)NULL) {
+        stringPIN = @"0000";
+    }
+    while ([stringPIN length] < 4) {
+        stringPIN = [NSString stringWithFormat:@"%@0",stringPIN];
+    }
+    if ([stringPIN isEqualToString:[pinCode substringToIndex:4]]) {
+        isLocked = false;
+        return YES;
+    } else if ([stringPIN isEqualToString:@"0000"]) {
+        currentUser.pinCode = pinCode;
+        [appDel saveContext];
+        [self lock:self];
+        return YES;
+    }
     return NO;
 }
 
--(void) pinCodeViewWillClose{
-//    [UIView beginAnimations:@"hideOverlay" context:nil];
-//    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationDuration:0.3];
-//    darkOverlay.alpha = 0;
-//    [UIView setAnimationDidStopSelector:@selector(removeOverlay)];
-//    [UIView commitAnimations];
-    pinCodeViewController=nil;
+-(void) pinCodeViewWillClose {
+    [UIView beginAnimations:@"hideOverlay" context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.3];
+    darkOverlay.alpha = 0;
+    [UIView setAnimationDidStopSelector:@selector(removeOverlay)];
+    [UIView commitAnimations];
+
+    [pinCodeViewController.view removeFromSuperview];
+    pinCodeViewController = nil;
 }
 
--(void) pinCodeViewLogout {
-    NSLog(@"logging out");
-//    [self.currentUser setPinCode:NULL];
-//    [self logout:self];
+- (void)removeOverlay {
+    
+    [darkOverlay removeFromSuperview];
+    darkOverlay = nil;
 }
 
-//- (void)removeOverlay {
-//    if (pinCodeViewController == nil) {
-//        [darkOverlay removeFromSuperview];
-//        [darkOverlay release];
-//        darkOverlay = nil;
-//    }
-//}
 
 - (IBAction)sign:(id)sender {
     // Initiallize the signature controller
@@ -207,6 +204,8 @@
     [self presentModalViewController:signatureController animated:YES];
 }
 
+
+
 #pragma mark - *** JBSignatureControllerDelegate ***
 
 /**
@@ -215,21 +214,58 @@
  **/
 -(void)signatureConfirmed:(UIImage *)signatureImage signatureController:(JBSignatureController *)sender {
 	
-	// get image and close signature controller
-	
-	// I replaced the view just to show it works...
-	UIImageView *imageview = [[UIImageView alloc] initWithImage:signatureImage];
-	[imageview setContentMode:UIViewContentModeCenter];
-	[imageview sizeToFit];
-	[imageview setTransform:sender.view.transform];
-	sender.view = imageview;
-    [self performSelector:@selector(dismissJBView) withObject:nil afterDelay:2.0];
-//	
-	// Example saving the image in the app's application support directory
-//	NSString *appSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
-    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	[UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
-	
+	if((sender.firstNameField.text.length > 0) && (sender.lastNameField.text.length > 0) && (sender.emailAddressField.text.length > 0))
+    {
+        
+        if([self validateEmail:sender.emailAddressField.text]) {
+        
+            //TODO: create new signer
+            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            [request setEntity: [NSEntityDescription entityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext]];
+            
+            NSError *error = nil;
+            NSUInteger count = [appDel.managedObjectContext countForFetchRequest: request error: &error];
+                        
+            Signer *newSigner = [NSEntityDescription insertNewObjectForEntityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext];
+            [newSigner setFirstName:sender.firstNameField.text];
+            [newSigner setLastName:sender.lastNameField.text];
+            [newSigner setEmail:sender.emailAddressField.text];
+            [newSigner setSignatureID:[NSNumber numberWithInt:(count + 1)]];
+            [newSigner setTimeStamp:[NSDate date]];
+            
+            [appDel saveContext];
+
+            
+            // get image and close signature controller
+            
+            // I replaced the view just to show it works...
+            UIImageView *imageview = [[UIImageView alloc] initWithImage:signatureImage];
+            [imageview setContentMode:UIViewContentModeCenter];
+            [imageview sizeToFit];
+            [imageview setTransform:sender.view.transform];
+            sender.view = imageview;
+            [self performSelector:@selector(dismissJBView) withObject:nil afterDelay:2.0];
+            //	
+            // Example saving the image in the app's application support directory
+            //	NSString *appSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
+            NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            [UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
+            
+        
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address" message:@"Please enter valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show]; 
+            sender.emailAddressField.text = @"";
+        }
+        
+   
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing required information." message:@"Please enter your first and last name and a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show]; 
+    }
+    
+    
+
 	
 }
 
@@ -286,6 +322,13 @@
             break;
     }
     [self dismissModalViewControllerAnimated:YES];
+}
+           
+- (BOOL)validateEmail:(NSString *)candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"; 
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex]; 
+               
+    return [emailTest evaluateWithObject:candidate];
 }
 
 @end

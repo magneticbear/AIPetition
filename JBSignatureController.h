@@ -20,6 +20,9 @@
 // Buttons for confirm and cancel
 @property(nonatomic,strong) UIButton *confirmButton, *cancelButton;
 
+// Fields for AI Signer Info
+@property(nonatomic,strong) UITextField *firstNameField, *lastNameField, *emailAddressField;
+
 // Delegate
 @property(nonatomic,weak) id<JBSignatureControllerDelegate> delegate;
 

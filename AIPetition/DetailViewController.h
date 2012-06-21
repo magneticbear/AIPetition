@@ -10,10 +10,16 @@
 #import "PinCode.h"
 #import "JBSignatureController.h"
 #import <MessageUI/MessageUI.h>
+#import "User.h"
+#import "AppDelegate.h"
+#import "Signer.h"
 
 @interface DetailViewController : UIViewController <PinCodeDelegate,UISplitViewControllerDelegate,JBSignatureControllerDelegate,MFMailComposeViewControllerDelegate> {
     PinCode *pinCodeViewController;
     UIView *darkOverlay;
+    User *currentUser;
+    BOOL isLocked;
+    AppDelegate *appDel;
 }
 
 @property (strong, nonatomic) id detailItem;

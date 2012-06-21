@@ -45,7 +45,10 @@ portraitBackgroundImage = portraitBackgroundImage_,
 landscapeBackgroundImage = landscapeBackgroundImage_,
 confirmButton = confirmButton_,
 cancelButton = cancelButton_,
-delegate = delegate_;
+delegate = delegate_,
+firstNameField = _firstNameField,
+lastNameField = _lastNameField,
+emailAddressField = _emailAddressField;
 
 
 
@@ -112,6 +115,33 @@ delegate = delegate_;
 										   self.cancelButton.frame.size.width, 
 										   self.cancelButton.frame.size.height)];
 	[self.cancelButton setAutoresizingMask:UIViewAutoresizingFlexibleRightMargin];
+    
+    // AI specfic fields
+    _firstNameField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, (cancelButton_.frame.origin.y + cancelButton_.frame.size.height) + 20, self.view.frame.size.width / 2, 35.0f)];
+    _firstNameField.placeholder = @"First Name";
+    [_firstNameField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
+    [_firstNameField setFont:[UIFont systemFontOfSize:18.0]];
+    [_firstNameField setAutocorrectionType:UITextAutocorrectionTypeNo];
+
+
+    _lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, (_firstNameField.frame.origin.y + _firstNameField.frame.size.height) + 10, self.view.frame.size.width / 2, 35.0f)];
+    _lastNameField.placeholder = @"Last Name";
+    [_lastNameField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
+    [_lastNameField setFont:[UIFont systemFontOfSize:18.0]];
+    [_lastNameField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    
+    _emailAddressField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, (_lastNameField.frame.origin.y + _lastNameField.frame.size.height) + 10, self.view.frame.size.width / 2, 35.0f)];
+    _emailAddressField.placeholder = @"Email Address";
+    [_emailAddressField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+    [_emailAddressField setBorderStyle:UITextBorderStyleRoundedRect];
+    [_emailAddressField setTextColor:[UIColor blueColor]];
+    [_emailAddressField setFont:[UIFont systemFontOfSize:18.0]];
+    [_emailAddressField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
+    [_emailAddressField setAutocorrectionType:UITextAutocorrectionTypeNo];
+
+
 	
 }
 
@@ -137,6 +167,12 @@ delegate = delegate_;
 	// Button actions
 	[self.confirmButton addTarget:self action:@selector(didTapCanfirmButton) forControlEvents:UIControlEventTouchUpInside];
 	[self.cancelButton addTarget:self action:@selector(didTapCancelButton) forControlEvents:UIControlEventTouchUpInside];
+    
+    // AI specfic fields
+    [self.view addSubview:_firstNameField];
+    [self.view addSubview:_lastNameField];
+    [self.view addSubview:_emailAddressField];
+    
 	
 }
 
@@ -195,7 +231,7 @@ delegate = delegate_;
 -(void)didTapCancelButton {
 	
 	if (self.delegate && [self.delegate respondsToSelector:@selector(signatureCancelled:)]) {
-		[self.delegate signatureCancelled:self];
+        [self.delegate signatureCancelled:self];
 	}
 	
 }
