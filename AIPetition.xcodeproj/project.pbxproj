@@ -41,7 +41,6 @@
 		E8D83FB91580D4DE00EEA230 /* bg-signature-portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8D83FB11580D4DD00EEA230 /* bg-signature-portrait@2x.png */; };
 		E8D83FBA1580D4DE00EEA230 /* JBSignatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D83FB31580D4DD00EEA230 /* JBSignatureController.m */; };
 		E8D83FBB1580D4DE00EEA230 /* JBSignatureView.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D83FB51580D4DE00EEA230 /* JBSignatureView.m */; };
-		E8D83FBF1580D6E700EEA230 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = E8D83FBE1580D6E700EEA230 /* NSFileManager+DirectoryLocations.m */; };
 		E8D83FC11580D7FB00EEA230 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D83FC01580D7FB00EEA230 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,8 +98,6 @@
 		E8D83FB31580D4DD00EEA230 /* JBSignatureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSignatureController.m; sourceTree = "<group>"; };
 		E8D83FB41580D4DE00EEA230 /* JBSignatureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBSignatureView.h; sourceTree = "<group>"; };
 		E8D83FB51580D4DE00EEA230 /* JBSignatureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBSignatureView.m; sourceTree = "<group>"; };
-		E8D83FBD1580D6E700EEA230 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
-		E8D83FBE1580D6E700EEA230 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
 		E8D83FC01580D7FB00EEA230 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -168,8 +165,6 @@
 		E8D83F291580C2F600EEA230 /* AIPetition */ = {
 			isa = PBXGroup;
 			children = (
-				E8D83FBD1580D6E700EEA230 /* NSFileManager+DirectoryLocations.h */,
-				E8D83FBE1580D6E700EEA230 /* NSFileManager+DirectoryLocations.m */,
 				E8D83FA81580D0DC00EEA230 /* petition.pdf */,
 				E8D83F321580C2F600EEA230 /* AppDelegate.h */,
 				E8D83F331580C2F600EEA230 /* AppDelegate.m */,
@@ -385,7 +380,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8D83F561580C2F600EEA230 /* AIPetitionTests.m in Sources */,
-				E8D83FBF1580D6E700EEA230 /* NSFileManager+DirectoryLocations.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

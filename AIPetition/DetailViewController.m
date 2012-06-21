@@ -7,7 +7,6 @@
 //
 
 #import "DetailViewController.h"
-#import "NSFileManager+DirectoryLocations.h"
 
 @interface DetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -226,9 +225,10 @@
 	sender.view = imageview;
     [self performSelector:@selector(dismissJBView) withObject:nil afterDelay:2.0];
 //	
-//	// Example saving the image in the app's application support directory
+	// Example saving the image in the app's application support directory
 //	NSString *appSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
-//	[UIImagePNGRepresentation(signatureImage) writeToFile:[appSupportPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
+    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	[UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
 	
 	
 }
@@ -255,8 +255,9 @@
     mailVC.mailComposeDelegate = self;
     
 //    // Attach an image to the email
-//    NSData *myData = [NSData dataWithContentsOfURL:recorder.url];
-//    [picker addAttachmentData:myData mimeType:@"audio/mp4a-latm" fileName:@"recording.m4a"];
+    NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSData *myData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent:@"signature.png"]];
+    [mailVC addAttachmentData:myData mimeType:@"image/png" fileName:@"signature"];
     
     // Fill out the email body text
     [mailVC setMessageBody:@"Please find attached a CSV file of signer information and a zip file of collected signatures for petition X." isHTML:NO];
