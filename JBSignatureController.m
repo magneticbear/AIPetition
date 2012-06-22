@@ -50,8 +50,6 @@ firstNameField = _firstNameField,
 lastNameField = _lastNameField,
 emailAddressField = _emailAddressField;
 
-
-
 #pragma mark - *** Initializers ***
 
 /**
@@ -140,9 +138,7 @@ emailAddressField = _emailAddressField;
     [_emailAddressField setFont:[UIFont systemFontOfSize:18.0]];
     [_emailAddressField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [_emailAddressField setAutocorrectionType:UITextAutocorrectionTypeNo];
-
-
-	
+    [_emailAddressField setKeyboardType:UIKeyboardTypeEmailAddress];
 }
 
 /**

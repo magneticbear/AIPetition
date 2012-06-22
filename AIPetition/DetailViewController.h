@@ -26,6 +26,10 @@
 @property (weak, nonatomic) IBOutlet UIWebView *petitionView;
 
 @property (strong, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) User *currentUser;
+
+@property (strong, nonatomic) UIBarButtonItem *lockBtn;
+
 - (IBAction)sign:(id)sender;
 
 @end

@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AppDelegate.h"
 @class DetailViewController;
 
 #import <CoreData/CoreData.h>
 
-@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MasterViewController : UITableViewController <NSFetchedResultsControllerDelegate> {
+    AppDelegate *appDel;
+}
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
