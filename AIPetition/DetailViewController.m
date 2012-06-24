@@ -240,13 +240,16 @@
             [request setEntity: [NSEntityDescription entityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext]];
             
             NSError *error = nil;
-            NSUInteger count = [appDel.managedObjectContext countForFetchRequest:request error:&error];
+            NSArray *signers = [appDel.managedObjectContext executeFetchRequest:request error:&error];
+            
+            NSNumber *maxID = [signers valueForKeyPath:@"@max.signatureID"];
+            NSLog(@"maxID: %d",maxID.intValue);
             
             Signer *newSigner = [NSEntityDescription insertNewObjectForEntityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext];
             [newSigner setFirstName:sender.firstNameField.text];
             [newSigner setLastName:sender.lastNameField.text];
             [newSigner setEmail:sender.emailAddressField.text];
-            [newSigner setSignatureID:[NSNumber numberWithInt:(count + 1)]];
+            [newSigner setSignatureID:[NSNumber numberWithInt:(maxID.intValue + 1)]];
             [newSigner setTimeStamp:[NSDate date]];
             
             [appDel saveContext];
