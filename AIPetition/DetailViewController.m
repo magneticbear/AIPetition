@@ -235,8 +235,7 @@
     {
         
         if([self validateEmail:sender.emailAddressField.text]) {
-        
-            //TODO: create new signer
+            
             NSFetchRequest *request = [[NSFetchRequest alloc] init];
             [request setEntity: [NSEntityDescription entityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext]];
             
@@ -251,39 +250,25 @@
             [newSigner setTimeStamp:[NSDate date]];
             
             [appDel saveContext];
-
             
-            // get image and close signature controller
-            
-            // I replaced the view just to show it works...
             UIImageView *imageview = [[UIImageView alloc] initWithImage:signatureImage];
             [imageview setContentMode:UIViewContentModeCenter];
             [imageview sizeToFit];
             [imageview setTransform:sender.view.transform];
             sender.view = imageview;
             [self performSelector:@selector(dismissJBView) withObject:nil afterDelay:2.0];
-            //	
-            // Example saving the image in the app's application support directory
-            //	NSString *appSupportPath = [[NSFileManager defaultManager] applicationSupportDirectory];
+            
             NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
             [UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
-            
-        
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address" message:@"Please enter valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show]; 
+            [alert show];
             sender.emailAddressField.text = @"";
         }
-        
-   
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Missing required information." message:@"Please enter your first and last name and a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show]; 
     }
-    
-    
-
-	
 }
 
 /**
