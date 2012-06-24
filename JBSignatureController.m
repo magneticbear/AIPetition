@@ -117,7 +117,8 @@ emailAddressField = _emailAddressField;
     [_firstNameField setBorderStyle:UITextBorderStyleRoundedRect];
     [_firstNameField setFont:[UIFont systemFontOfSize:18.0]];
     [_firstNameField setAutocorrectionType:UITextAutocorrectionTypeNo];
-
+    [_firstNameField setReturnKeyType:UIReturnKeyNext];
+    _firstNameField.delegate = self;
 
     _lastNameField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, (_firstNameField.frame.origin.y + _firstNameField.frame.size.height) + 10, self.view.frame.size.width / 2, 35.0f)];
     _lastNameField.placeholder = @"Last Name";
@@ -125,6 +126,8 @@ emailAddressField = _emailAddressField;
     [_lastNameField setBorderStyle:UITextBorderStyleRoundedRect];
     [_lastNameField setFont:[UIFont systemFontOfSize:18.0]];
     [_lastNameField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [_lastNameField setReturnKeyType:UIReturnKeyNext];
+    _lastNameField.delegate = self;
     
     _emailAddressField = [[UITextField alloc] initWithFrame:CGRectMake(10.0f, (_lastNameField.frame.origin.y + _lastNameField.frame.size.height) + 10, self.view.frame.size.width / 2, 35.0f)];
     _emailAddressField.placeholder = @"Email Address";
@@ -135,6 +138,8 @@ emailAddressField = _emailAddressField;
     [_emailAddressField setAutocapitalizationType:UITextAutocapitalizationTypeNone];
     [_emailAddressField setAutocorrectionType:UITextAutocorrectionTypeNo];
     [_emailAddressField setKeyboardType:UIKeyboardTypeEmailAddress];
+    [_emailAddressField setReturnKeyType:UIReturnKeyGo];
+    _emailAddressField.delegate = self;
 }
 
 /**
@@ -240,6 +245,20 @@ emailAddressField = _emailAddressField;
 	}
 	
 	[self.signatureView clearSignature];
+}
+
+#pragma mark - textFieldDelegate methods
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if(textField ==_firstNameField){
+        [_lastNameField becomeFirstResponder];
+    } else if(textField == _lastNameField){
+        [_emailAddressField becomeFirstResponder];
+    } else if(textField == _emailAddressField) {
+        [self didTapConfirmButton];
+    }
+    return YES;
 }
 
 @end

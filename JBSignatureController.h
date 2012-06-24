@@ -12,7 +12,7 @@
 
 
 
-@interface JBSignatureController : UIViewController
+@interface JBSignatureController : UIViewController <UITextFieldDelegate>
 
 // Allows you to set th background images in different states
 @property(nonatomic,strong) UIImage *portraitBackgroundImage, *landscapeBackgroundImage;
