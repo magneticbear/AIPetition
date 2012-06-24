@@ -9,8 +9,6 @@
 #import "JBSignatureController.h"
 #import "JBSignatureView.h"
 
-
-
 #pragma mark - *** Private Interface ***
 
 @interface JBSignatureController() {
@@ -29,12 +27,10 @@
 @property(nonatomic,strong) UIImageView *signaturePanelBackgroundImageView;
 
 // Private Methods
--(void)didTapCanfirmButton;
+-(void)didTapConfirmButton;
 -(void)didTapCancelButton;
 
 @end
-
-
 
 @implementation JBSignatureController
 
@@ -161,7 +157,7 @@ emailAddressField = _emailAddressField;
 	[self.view addSubview:self.confirmButton];
 	
 	// Button actions
-	[self.confirmButton addTarget:self action:@selector(didTapCanfirmButton) forControlEvents:UIControlEventTouchUpInside];
+	[self.confirmButton addTarget:self action:@selector(didTapConfirmButton) forControlEvents:UIControlEventTouchUpInside];
 	[self.cancelButton addTarget:self action:@selector(didTapCancelButton) forControlEvents:UIControlEventTouchUpInside];
     
     // AI specfic fields
@@ -211,13 +207,11 @@ emailAddressField = _emailAddressField;
  * Upon confirmation, message the delegate with the image of the signature.
  * @author Jesse Bunch
  **/
--(void)didTapCanfirmButton {
-	
+-(void)didTapConfirmButton {
 	if (self.delegate && [self.delegate respondsToSelector:@selector(signatureConfirmed:signatureController:)]) {
 		UIImage *signatureImage = [self.signatureView getSignatureImage];
 		[self.delegate signatureConfirmed:signatureImage signatureController:self];
 	}
-	
 }
 
 /**
@@ -225,11 +219,10 @@ emailAddressField = _emailAddressField;
  * @author Jesse Bunch
  **/
 -(void)didTapCancelButton {
-	
 	if (self.delegate && [self.delegate respondsToSelector:@selector(signatureCancelled:)]) {
         [self.delegate signatureCancelled:self];
 	}
-	
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - *** Public Methods ***
@@ -248,6 +241,5 @@ emailAddressField = _emailAddressField;
 	
 	[self.signatureView clearSignature];
 }
-
 
 @end
