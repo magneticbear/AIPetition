@@ -95,7 +95,7 @@
 
 - (void)splitViewController:(UISplitViewController *)splitController willHideViewController:(UIViewController *)viewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)popoverController
 {
-    barButtonItem.title = NSLocalizedString(@"Master", @"Master");
+    barButtonItem.title = NSLocalizedString(@"Signatures", @"Signatures");
     [self.navigationItem setLeftBarButtonItem:barButtonItem animated:YES];
     self.masterPopoverController = popoverController;
 }
@@ -240,8 +240,8 @@
             [request setEntity: [NSEntityDescription entityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext]];
             
             NSError *error = nil;
-            NSUInteger count = [appDel.managedObjectContext countForFetchRequest: request error: &error];
-                        
+            NSUInteger count = [appDel.managedObjectContext countForFetchRequest:request error:&error];
+            
             Signer *newSigner = [NSEntityDescription insertNewObjectForEntityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext];
             [newSigner setFirstName:sender.firstNameField.text];
             [newSigner setLastName:sender.lastNameField.text];
