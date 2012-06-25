@@ -258,7 +258,7 @@ emailAddressField = _emailAddressField;
     } else if(textField == _lastNameField){
         [_emailAddressField becomeFirstResponder];
     } else if(textField == _emailAddressField) {
-        [self didTapConfirmButton];
+        [_emailAddressField resignFirstResponder];
     }
     return YES;
 }
