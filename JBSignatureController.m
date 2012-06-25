@@ -263,4 +263,8 @@ emailAddressField = _emailAddressField;
     return YES;
 }
 
+- (BOOL)disablesAutomaticKeyboardDismissal {
+    return NO;
+}
+
 @end
