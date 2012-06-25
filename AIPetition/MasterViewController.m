@@ -33,6 +33,8 @@
     appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reset" style:UIBarButtonItemStylePlain target:self action:@selector(resetSignatures:)];
 
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
 //    self.navigationItem.rightBarButtonItem = addButton;
@@ -231,6 +233,40 @@
 {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"email"] description];
+}
+
+- (void)resetSignatures:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to delete all signatures collected to this point?" delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSLog(@"Resetting all signatures");
+        
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        NSArray *signers = [self.fetchedResultsController fetchedObjects];
+        for (Signer *signer in signers)
+            [context deleteObject:signer];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+        
+        NSFileManager *fileMgr = [NSFileManager defaultManager];
+        NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        for (NSString *fileName in [fileMgr contentsOfDirectoryAtPath:documentsPath error:&error]) {
+            if ([fileMgr removeItemAtPath:[documentsPath stringByAppendingPathComponent:fileName] error:&error] != YES)
+                NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+        }
+        
+        NSLog(@"Should be 0/0: %d/%d",[[self.fetchedResultsController fetchedObjects] count],[[fileMgr contentsOfDirectoryAtPath:documentsPath error:&error] count]);
+        [self.tableView reloadData];
+    }
 }
 
 @end
