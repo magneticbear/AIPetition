@@ -96,7 +96,15 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        Signer *signer = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        if (TRUE) {
+            NSError *error;
+            NSFileManager *fileMgr = [NSFileManager defaultManager];
+            NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+            if ([fileMgr removeItemAtPath:[documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg",signer.signatureID.intValue]] error:&error] != YES)
+                NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+        }
+        [context deleteObject:signer];
         
         NSError *error = nil;
         if (![context save:&error]) {
