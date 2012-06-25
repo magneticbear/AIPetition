@@ -114,15 +114,15 @@
     if (!isLocked) {
         _currentUser.pinCode = NULL;
         [appDel saveContext];
-//        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
-//        [darkOverlay setBackgroundColor:[UIColor blackColor]];
-//        [darkOverlay setAlpha:0];
-//        [self.splitViewController.view addSubview:darkOverlay];
-//        [UIView beginAnimations:@"castOverlay" context:nil];
-//        [UIView setAnimationDelegate:self];
-//        [UIView setAnimationDuration:0.3];
-//        darkOverlay.alpha = 0.6;
-//        [UIView commitAnimations];
+        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+        [darkOverlay setBackgroundColor:[UIColor blackColor]];
+        [darkOverlay setAlpha:0];
+        [self.splitViewController.view addSubview:darkOverlay];
+        [UIView beginAnimations:@"castOverlay" context:nil];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDuration:0.3];
+        darkOverlay.alpha = 0.6;
+        [UIView commitAnimations];
         pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
         
         [pinCodeViewController setDelegate:self];
@@ -137,15 +137,15 @@
             pinCodeViewController.descriptionLabel.text = @"Choose a 4-digit secret PIN";
         }
     } else {
-//        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
-//        [darkOverlay setBackgroundColor:[UIColor blackColor]];
-//        [darkOverlay setAlpha:0];
-//        [self.splitViewController.view addSubview:darkOverlay];
-//        [UIView beginAnimations:@"castOverlay" context:nil];
-//        [UIView setAnimationDelegate:self];
-//        [UIView setAnimationDuration:0.3];
-//        darkOverlay.alpha = 0.6;
-//        [UIView commitAnimations];
+        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+        [darkOverlay setBackgroundColor:[UIColor blackColor]];
+        [darkOverlay setAlpha:0];
+        [self.splitViewController.view addSubview:darkOverlay];
+        [UIView beginAnimations:@"castOverlay" context:nil];
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDuration:0.3];
+        darkOverlay.alpha = 0.6;
+        [UIView commitAnimations];
         pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
         
         [pinCodeViewController setDelegate:self];
@@ -178,7 +178,7 @@
     } else if ([stringPIN isEqualToString:@"0000"]) {
         _currentUser.pinCode = pinCode;
         [appDel saveContext];
-//        [self removeOverlay];
+        [self removeOverlay];
         isLocked = true;
         // btn to unlock
         _lockBtn.title = @"Unlock";
@@ -188,23 +188,21 @@
 }
 
 -(void) pinCodeViewWillClose {
-//    [UIView beginAnimations:@"hideOverlay" context:nil];
-//    [UIView setAnimationDelegate:self];
-//    [UIView setAnimationDuration:0.3];
-//    darkOverlay.alpha = 0;
-//    [UIView setAnimationDidStopSelector:@selector(removeOverlay)];
-//    [UIView commitAnimations];
-//
+    [UIView beginAnimations:@"hideOverlay" context:nil];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDuration:0.3];
+    darkOverlay.alpha = 0;
+    [UIView setAnimationDidStopSelector:@selector(removeOverlay)];
+    [UIView commitAnimations];
+
     [pinCodeViewController.view removeFromSuperview];
     pinCodeViewController = nil;
 }
 
 - (void)removeOverlay {
-    
     [darkOverlay removeFromSuperview];
     darkOverlay = nil;
 }
-
 
 - (IBAction)sign:(id)sender {
     // Initiallize the signature controller
