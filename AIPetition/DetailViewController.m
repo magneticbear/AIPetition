@@ -242,14 +242,13 @@
             NSError *error = nil;
             NSArray *signers = [appDel.managedObjectContext executeFetchRequest:request error:&error];
             
-            NSNumber *maxID = [signers valueForKeyPath:@"@max.signatureID"];
-            NSLog(@"maxID: %d",maxID.intValue);
+            NSInteger newID = ((NSNumber*)[signers valueForKeyPath:@"@max.signatureID"]).intValue + 1;
             
             Signer *newSigner = [NSEntityDescription insertNewObjectForEntityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext];
             [newSigner setFirstName:sender.firstNameField.text];
             [newSigner setLastName:sender.lastNameField.text];
             [newSigner setEmail:sender.emailAddressField.text];
-            [newSigner setSignatureID:[NSNumber numberWithInt:(maxID.intValue + 1)]];
+            [newSigner setSignatureID:[NSNumber numberWithInt:newID]];
             [newSigner setTimeStamp:[NSDate date]];
             
             [appDel saveContext];
@@ -262,7 +261,8 @@
             [self performSelector:@selector(dismissJBView) withObject:nil afterDelay:2.0];
             
             NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            [UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:@"signature.png"] atomically:YES];
+            [UIImageJPEGRepresentation(signatureImage, 0.6) writeToFile:[documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.jpg",newID]] atomically:YES];
+//            [UIImagePNGRepresentation(signatureImage) writeToFile:[documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%d.png",newID]] atomically:YES];
         } else {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Invalid Email Address" message:@"Please enter valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
