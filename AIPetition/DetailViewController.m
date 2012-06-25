@@ -294,6 +294,7 @@
     MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
     mailVC.mailComposeDelegate = self;
     
+//    Get all signature JPEGs
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsPath error:NULL];
     for (NSString *fileName in directoryContent) {
@@ -303,6 +304,19 @@
             [mailVC addAttachmentData:myData mimeType:@"image/jpeg" fileName:fileName];
         }
     }
+    
+//    Create signer info CSV
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity: [NSEntityDescription entityForName:@"Signer" inManagedObjectContext:appDel.managedObjectContext]];
+    
+    NSError *error = nil;
+    NSArray *signers = [appDel.managedObjectContext executeFetchRequest:request error:&error];
+    NSString *csvString = @"Signature ID,First Name,Last Name,Email\n";
+    for (Signer *signer in signers) {
+        csvString = [NSString stringWithFormat:@"%@%d,%@,%@,%@\n",csvString,signer.signatureID.intValue,signer.firstName,signer.lastName,signer.email];
+    }
+    
+    [mailVC addAttachmentData:[csvString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/csv" fileName:@"signatures.csv"];
     
     // Fill out the email body text
     [mailVC setMessageBody:@"This email contains a CSV file of signer information and their signatures for the Arms Trade Treaty Petition." isHTML:NO];

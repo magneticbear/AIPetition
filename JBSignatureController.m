@@ -140,6 +140,8 @@ emailAddressField = _emailAddressField;
     [_emailAddressField setKeyboardType:UIKeyboardTypeEmailAddress];
     [_emailAddressField setReturnKeyType:UIReturnKeyGo];
     _emailAddressField.delegate = self;
+    
+    [_firstNameField becomeFirstResponder];
 }
 
 /**
