@@ -305,7 +305,7 @@
     }
     
     // Fill out the email body text
-    [mailVC setMessageBody:@"Please find attached a CSV file of signer information and all signature images for the Arms Trade Treaty Petition." isHTML:NO];
+    [mailVC setMessageBody:@"This email contains a CSV file of signer information and their signatures for the Arms Trade Treaty Petition." isHTML:NO];
     [self presentModalViewController:mailVC animated:YES];
 }
 
