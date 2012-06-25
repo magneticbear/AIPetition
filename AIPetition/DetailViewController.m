@@ -111,7 +111,6 @@
 - (void)lock:(id)sender {
 
     if ([_currentUser pinCode] == NULL) {
-        
 //        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
 //        [darkOverlay setBackgroundColor:[UIColor blackColor]];
 //        [darkOverlay setAlpha:0];
@@ -295,13 +294,18 @@
     MFMailComposeViewController *mailVC = [[MFMailComposeViewController alloc] init];
     mailVC.mailComposeDelegate = self;
     
-//    // Attach an image to the email
     NSString* documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSData *myData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent:@"signature.png"]];
-    [mailVC addAttachmentData:myData mimeType:@"image/png" fileName:@"signature"];
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentsPath error:NULL];
+    for (NSString *fileName in directoryContent) {
+        if ([fileName rangeOfString:@".jpg"].location != NSNotFound) {
+            NSLog(@"documents/%@",fileName);
+            NSData *myData = [NSData dataWithContentsOfFile:[documentsPath stringByAppendingPathComponent:fileName]];
+            [mailVC addAttachmentData:myData mimeType:@"image/jpeg" fileName:fileName];
+        }
+    }
     
     // Fill out the email body text
-    [mailVC setMessageBody:@"Please find attached a CSV file of signer information and a zip file of collected signatures for petition X." isHTML:NO];
+    [mailVC setMessageBody:@"Please find attached a CSV file of signer information and all signature images for the Arms Trade Treaty Petition." isHTML:NO];
     [self presentModalViewController:mailVC animated:YES];
 }
 
