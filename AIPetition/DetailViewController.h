@@ -18,7 +18,6 @@
     PinCode *pinCodeViewController;
     UIView *darkOverlay;
     User *currentUser;
-    BOOL isLocked;
     AppDelegate *appDel;
 }
 

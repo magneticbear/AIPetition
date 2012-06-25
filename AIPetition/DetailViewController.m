@@ -54,7 +54,7 @@
     [self configureView];
     
     appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    isLocked = NO;
+    appDel.isLocked = NO;
     
     _lockBtn = [[UIBarButtonItem alloc] initWithTitle:@"Lock" style:UIBarButtonItemStylePlain target:self action:@selector(lock:)];
     UIBarButtonItem *emailBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(email:)];
@@ -111,7 +111,7 @@
 
 #pragma mark - Lock
 - (void)lock:(id)sender {
-    if (!isLocked) {
+    if (!appDel.isLocked) {
         _currentUser.pinCode = NULL;
         [appDel saveContext];
         darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
@@ -173,7 +173,7 @@
         _currentUser.pinCode = NULL;
         [appDel saveContext];
         _lockBtn.title = @"Lock";
-        isLocked = false;
+        appDel.isLocked = false;
         UIBarButtonItem *emailBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(email:)];
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_lockBtn, emailBtn, nil];
         return YES;
@@ -181,7 +181,7 @@
         _currentUser.pinCode = pinCode;
         [appDel saveContext];
         [self removeOverlay];
-        isLocked = true;
+        appDel.isLocked = true;
         // btn to unlock
         _lockBtn.title = @"Unlock";
         self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_lockBtn, nil];
