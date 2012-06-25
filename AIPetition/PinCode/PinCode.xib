@@ -48,7 +48,7 @@
 						<string key="NSFrameSize">{320, 480}</string>
 						<reference key="NSSuperview" ref="807779936"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="160371589"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSCustomResource" key="IBUIImage">
@@ -108,41 +108,21 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="616370736">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">boton_cancel.png</string>
 						</object>
-						<object class="IBUIFontDescription" key="IBUIFontDescription" id="106852275">
+						<object class="IBUIFontDescription" key="IBUIFontDescription">
 							<string key="name">Helvetica-Bold</string>
 							<string key="family">Helvetica</string>
 							<int key="traits">2</int>
 							<double key="pointSize">13</double>
 						</object>
-						<object class="NSFont" key="IBUIFont" id="710406524">
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">13</double>
 							<int key="NSfFlags">16</int>
 						</object>
-					</object>
-					<object class="IBUIButton" id="160371589">
-						<reference key="NSNextResponder" ref="807779936"/>
-						<int key="NSvFlags">-2147483356</int>
-						<string key="NSFrame">{{6, 3}, {74, 37}}</string>
-						<reference key="NSSuperview" ref="807779936"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="692647494"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<int key="IBUITag">400</int>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">Logout</string>
-						<reference key="IBUIHighlightedTitleColor" ref="676950625"/>
-						<reference key="IBUINormalTitleColor" ref="676950625"/>
-						<reference key="IBUINormalTitleShadowColor" ref="480581085"/>
-						<reference key="IBUINormalBackgroundImage" ref="616370736"/>
-						<reference key="IBUIFontDescription" ref="106852275"/>
-						<reference key="IBUIFont" ref="710406524"/>
 					</object>
 					<object class="IBUILabel" id="947858541">
 						<reference key="NSNextResponder" ref="807779936"/>
@@ -782,14 +762,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">logoutButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="160371589"/>
-					</object>
-					<int key="connectionID">102</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">failedAttemptLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="292266596"/>
@@ -904,15 +876,6 @@
 					</object>
 					<int key="connectionID">90</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">buttonPressedAction:</string>
-						<reference key="source" ref="160371589"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">101</int>
-				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -964,7 +927,6 @@
 							<reference ref="233396108"/>
 							<reference ref="455834448"/>
 							<reference ref="292266596"/>
-							<reference ref="160371589"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">View</string>
@@ -1087,11 +1049,6 @@
 						<reference key="parent" ref="807779936"/>
 						<string key="objectName">Label - Enter your PinCode</string>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">99</int>
-						<reference key="object" ref="160371589"/>
-						<reference key="parent" ref="807779936"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1138,7 +1095,6 @@
 					<string>60.IBPluginDependency</string>
 					<string>9.IBPluginDependency</string>
 					<string>98.IBPluginDependency</string>
-					<string>99.IBPluginDependency</string>
 				</object>
 				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1178,7 +1134,6 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="0.0"/>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

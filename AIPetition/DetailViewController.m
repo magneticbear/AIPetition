@@ -65,17 +65,19 @@
     [_petitionView loadRequest:request];
     
     //create new user
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:appDel.managedObjectContext]];
-//    
-//    NSError *error;
-//    NSArray *users = [appDel.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-//    if ([users count]) {
-//        _currentUser = [users lastObject];
-//    } else {
-//        _currentUser = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:appDel.managedObjectContext];
-//    }
-//    [appDel saveContext];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    [fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:appDel.managedObjectContext]];
+    
+    NSError *error;
+    NSArray *users = [appDel.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if ([users count]) {
+        NSLog(@"user already exists");
+        _currentUser = [users lastObject];
+    } else {
+        NSLog(@"created user");
+        _currentUser = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:appDel.managedObjectContext];
+    }
+    [appDel saveContext];
 }
 
 - (void)viewDidUnload
@@ -109,8 +111,9 @@
 
 #pragma mark - Lock
 - (void)lock:(id)sender {
-
-    if ([_currentUser pinCode] == NULL) {
+    if (!isLocked) {
+        _currentUser.pinCode = NULL;
+        [appDel saveContext];
 //        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
 //        [darkOverlay setBackgroundColor:[UIColor blackColor]];
 //        [darkOverlay setAlpha:0];
@@ -133,46 +136,32 @@
             pinCodeViewController.titleLabel.text = @"Set your PIN";
             pinCodeViewController.descriptionLabel.text = @"Choose a 4-digit secret PIN";
         }
-
     } else {
-            if (isLocked) {
-//                darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
-//                [darkOverlay setBackgroundColor:[UIColor blackColor]];
-//                [darkOverlay setAlpha:0];
-//                [self.splitViewController.view addSubview:darkOverlay];
-//                [UIView beginAnimations:@"castOverlay" context:nil];
-//                [UIView setAnimationDelegate:self];
-//                [UIView setAnimationDuration:0.3];
-//                darkOverlay.alpha = 0.6;
-//                [UIView commitAnimations];
-                pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
-                
-                [pinCodeViewController setDelegate:self];
-                [pinCodeViewController.view setFrame:CGRectMake(
-                                                                (self.splitViewController.view.frame.size.height/2)-(pinCodeViewController.view.frame.size.width/2),
-                                                                (self.splitViewController.view.frame.size.width/2)-(pinCodeViewController.view.frame.size.height/2),
-                                                                pinCodeViewController.view.frame.size.width,
-                                                                pinCodeViewController.view.frame.size.height)];
+//        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+//        [darkOverlay setBackgroundColor:[UIColor blackColor]];
+//        [darkOverlay setAlpha:0];
+//        [self.splitViewController.view addSubview:darkOverlay];
+//        [UIView beginAnimations:@"castOverlay" context:nil];
+//        [UIView setAnimationDelegate:self];
+//        [UIView setAnimationDuration:0.3];
+//        darkOverlay.alpha = 0.6;
+//        [UIView commitAnimations];
+        pinCodeViewController=[[PinCode alloc] initWithNibName:@"PinCode" bundle:nil];
+        
+        [pinCodeViewController setDelegate:self];
+        [pinCodeViewController.view setFrame:CGRectMake(
+                                                        (self.splitViewController.view.frame.size.height/2)-(pinCodeViewController.view.frame.size.width/2),
+                                                        (self.splitViewController.view.frame.size.width/2)-(pinCodeViewController.view.frame.size.height/2),
+                                                        pinCodeViewController.view.frame.size.width,
+                                                        pinCodeViewController.view.frame.size.height)];
 
-                [self.splitViewController.view addSubview:pinCodeViewController.view];
-            } else {
-//                [self removeOverlay];
-                isLocked = true;
-                // btn to unlock
-                _lockBtn.title = @"Unlock";
-            }
+        [self.splitViewController.view addSubview:pinCodeViewController.view];
     }
-    
 }
 # pragma mark -- PinView delegate methods
 
--(void) pinCodeViewLogout {
-
-    //NOT needed
-}
-
--(BOOL) isPinCodeCorrect:(NSString *)pinCode{
-
+- (BOOL)isPinCodeCorrect:(NSString *)pinCode{
+    NSLog(@"validate pincode %@",pinCode);
     NSString *stringPIN = [_currentUser pinCode];
     if (stringPIN == (NSString*)NULL) {
         stringPIN = @"0000";
@@ -181,13 +170,18 @@
         stringPIN = [NSString stringWithFormat:@"%@0",stringPIN];
     }
     if ([stringPIN isEqualToString:[pinCode substringToIndex:4]]) {
+        _currentUser.pinCode = NULL;
+        [appDel saveContext];
         _lockBtn.title = @"Lock";
         isLocked = false;
         return YES;
     } else if ([stringPIN isEqualToString:@"0000"]) {
         _currentUser.pinCode = pinCode;
         [appDel saveContext];
-        [self lock:self];
+//        [self removeOverlay];
+        isLocked = true;
+        // btn to unlock
+        _lockBtn.title = @"Unlock";
         return YES;
     }
     return NO;

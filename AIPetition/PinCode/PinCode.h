@@ -14,8 +14,6 @@
 
 -(void) pinCodeViewWillClose;
 
--(void) pinCodeViewLogout;
-
 @end
 
 @interface PinCode : UIViewController {
@@ -27,7 +25,6 @@
     
     UILabel *titleLabel;
     UIButton *cancelButton;     // tag 300
-    UIButton *logoutButton;     // tag 400
     
     UILabel *descriptionLabel;
     UILabel *failedAttemptLabel;
@@ -58,7 +55,6 @@
 
 @property (nonatomic, retain) IBOutlet UILabel *titleLabel;
 @property (nonatomic, retain) IBOutlet UIButton *cancelButton;
-@property (nonatomic, retain) IBOutlet UIButton *logoutButton;
 
 @property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
 @property (nonatomic, retain) IBOutlet UILabel *failedAttemptLabel;

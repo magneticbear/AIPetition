@@ -28,7 +28,6 @@
 @synthesize deleteButton;
 @synthesize titleLabel;
 @synthesize cancelButton;
-@synthesize logoutButton;
 @synthesize descriptionLabel;
 @synthesize failedAttemptLabel;
 @synthesize secondElementTextField;
@@ -161,10 +160,6 @@
             
             break;
             
-        case 400: // logout button
-            [delegate pinCodeViewLogout];
-            break;
-            
         default: // number buttons
             [inputCode appendString:[NSString stringWithFormat:@"%d",[sender tag]-100]];
             
@@ -210,7 +205,6 @@
         secondElementTextField.text=@"";
         thirdElementTextField.text=@"";
         fourthElementTextField.text=@"";
-        logoutButton.hidden = NO;
         failedAttemptLabel.hidden = NO;
         [self earthquake:self.view];
     }
