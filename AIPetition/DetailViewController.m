@@ -174,6 +174,8 @@
         [appDel saveContext];
         _lockBtn.title = @"Lock";
         isLocked = false;
+        UIBarButtonItem *emailBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(email:)];
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_lockBtn, emailBtn, nil];
         return YES;
     } else if ([stringPIN isEqualToString:@"0000"]) {
         _currentUser.pinCode = pinCode;
@@ -182,6 +184,7 @@
         isLocked = true;
         // btn to unlock
         _lockBtn.title = @"Unlock";
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_lockBtn, nil];
         return YES;
     }
     return NO;
