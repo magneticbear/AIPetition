@@ -56,7 +56,6 @@
     [self configureView];
     
     appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDel.isLocked = NO;
     
     _lockBtn = [[UIBarButtonItem alloc] initWithTitle:@"Lock" style:UIBarButtonItemStylePlain target:self action:@selector(lock:)];
     UIBarButtonItem *emailBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(email:)];
@@ -80,6 +79,14 @@
         _currentUser = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:appDel.managedObjectContext];
     }
     [appDel saveContext];
+    if (_currentUser.pinCode.length > 0) {
+        appDel.isLocked = true;
+        // btn to unlock
+        _lockBtn.title = @"Unlock";
+        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:_lockBtn, nil];
+    } else {
+        appDel.isLocked = NO;
+    }
 }
 
 - (void)viewDidUnload
