@@ -114,7 +114,7 @@
     if (!appDel.isLocked) {
         _currentUser.pinCode = NULL;
         [appDel saveContext];
-        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 1024)];
         [darkOverlay setBackgroundColor:[UIColor blackColor]];
         [darkOverlay setAlpha:0];
         [self.splitViewController.view addSubview:darkOverlay];
@@ -137,7 +137,7 @@
             pinCodeViewController.descriptionLabel.text = @"Choose a 4-digit secret PIN";
         }
     } else {
-        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 748)];
+        darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1024, 1024)];
         [darkOverlay setBackgroundColor:[UIColor blackColor]];
         [darkOverlay setAlpha:0];
         [self.splitViewController.view addSubview:darkOverlay];
