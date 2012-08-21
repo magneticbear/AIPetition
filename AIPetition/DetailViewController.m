@@ -323,7 +323,7 @@
     [mailVC addAttachmentData:[csvString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/csv" fileName:@"signatures.csv"];
     
     // Fill out the email body text
-    [mailVC setMessageBody:@"This email contains a CSV file of signer information and their signatures for the Arms Trade Treaty Petition." isHTML:NO];
+    [mailVC setMessageBody:@"This email contains a CSV file of signer information and their signatures for the Justice for Noxolo petition." isHTML:NO];
     [self presentModalViewController:mailVC animated:YES];
 }
 
