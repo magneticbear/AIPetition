@@ -323,7 +323,7 @@
     [mailVC addAttachmentData:[csvString dataUsingEncoding:NSUTF8StringEncoding] mimeType:@"text/csv" fileName:@"signatures.csv"];
     
     // Fill out the email body text
-    [mailVC setMessageBody:@"This email contains a CSV file of signer information and their signatures for the Justice for Noxolo petition." isHTML:NO];
+    [mailVC setMessageBody:[NSString stringWithFormat:@"This email contains a CSV file of signer information and their signatures for the %@ petition.",kPetitionName] isHTML:NO];
     [self presentModalViewController:mailVC animated:YES];
 }
 
